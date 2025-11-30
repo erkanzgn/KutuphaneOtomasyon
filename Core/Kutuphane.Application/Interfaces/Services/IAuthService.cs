@@ -1,4 +1,5 @@
 ﻿using Kutuphane.Application.Dtos.AuthDtos;
+using Kutuphane.Application.Dtos.MemberDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Kutuphane.Application.Interfaces.Services;
 public interface IAuthService
 {
     Task<AuthResultDto?> LoginAsync(LoginDto dto);
-    Task<UserDto> RegisterAsync(RegisterDto dto);
+    Task<UserDto> RegisterAsync(RegisterDto dto, CreateMemberDto memberDto);
     Task<UserDto?> GetUserByIdAsync(int userId);
     Task<IEnumerable<UserDto>> GetAllUsersAsync();
     Task<UserDto> UpdateUserRoleAsync(int userId, string role);

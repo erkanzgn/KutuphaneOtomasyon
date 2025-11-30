@@ -1,4 +1,5 @@
 ﻿using Kutuphane.Application.Dtos.AuthDtos;
+using Kutuphane.Application.Dtos.MemberDtos;
 using Kutuphane.Application.Exceptions;
 using Kutuphane.Application.Interfaces.Repositories;
 using Kutuphane.Application.Interfaces.Services;
@@ -16,10 +17,12 @@ namespace Kutuphane.Application.Services;
 public class AuthService:IAuthService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IMemberRepository _memberRepository;
 
-    public AuthService(IUserRepository userRepository)
+    public AuthService(IUserRepository userRepository, IMemberRepository memberRepository)
     {
         _userRepository = userRepository;
+        _memberRepository = memberRepository;
     }
 
     public async Task<AuthResultDto?> LoginAsync(LoginDto dto)
@@ -58,7 +61,7 @@ public class AuthService:IAuthService
         };
     }
 
-    public async Task<UserDto> RegisterAsync(RegisterDto dto)
+    public async Task<UserDto> RegisterAsync(RegisterDto dto, CreateMemberDto memberDto)
     {
         // 1. Username kontrolü
         if (await _userRepository.IsUsernameExistsAsync(dto.Username))
@@ -72,30 +75,49 @@ public class AuthService:IAuthService
             throw new DuplicateException("User", "Email", dto.Email);
         }
 
-        // 3. Rol validasyonu
-        if (!Enum.TryParse<UserRole>(dto.Role, out var userRole))
-        {
-            throw new BusinessException($"Invalid role: {dto.Role}");
-        }
+        // 3. Önce Member oluştur
+        var memberNumber = await GenerateMemberNumberAsync();
 
-        // 4. Şifre hash'le
+        var member = new Member
+        {
+            MemberNumber = memberNumber,
+            FirstName = memberDto.FirstName,
+            LastName = memberDto.LastName,
+            Email = dto.Email,
+            Phone = memberDto.Phone,
+            Address = memberDto.Address,
+            DateOfBirth = memberDto.DateOfBirth,
+            RegistrationDate = DateTime.Now,
+            Status = MemberStatus.Aktif
+        };
+
+        await _memberRepository.AddAsync(member);
+
+        // 4. Sonra User oluştur (MemberId bağla)
         var passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
-        // 5. Kullanıcı oluştur
         var user = new User
         {
             Username = dto.Username,
             Email = dto.Email,
             PasswordHash = passwordHash,
-            FirstName = dto.FirstName,
-            LastName = dto.LastName,
-            Role = userRole,
-            IsActive = true
+            FirstName = memberDto.FirstName,
+            LastName = memberDto.LastName,
+            Role = UserRole.Member, 
+            IsActive = true,
+            MemberId = member.Id  
         };
 
         await _userRepository.AddAsync(user);
 
         return MapToUserDto(user);
+    }
+
+    private async Task<string> GenerateMemberNumberAsync()
+    {
+        var year = DateTime.Now.Year;
+        var count = await _memberRepository.CountAsync();
+        return $"UYE-{year}-{(count + 1):D4}";
     }
 
     public async Task<UserDto?> GetUserByIdAsync(int userId)

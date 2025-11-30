@@ -71,6 +71,7 @@ public class BookService:IBookService
             Language = book.Language,
             Description = book.Description,
             TotalCopies = book.Copies.Count,
+            ImageUrl = book.ImageUrl,
             AvailableCopies = availableCopies,
             Copies = book.Copies.Select(c => new Dtos.CopyDtos.ResultCopyDto
             {
@@ -139,6 +140,7 @@ public class BookService:IBookService
             Category = dto.Category,
             PageCount = dto.PageCount,
             Language = dto.Language,
+            ImageUrl = dto.ImageUrl,
             Description = dto.Description
         };
 
@@ -162,6 +164,7 @@ public class BookService:IBookService
         book.Category = dto.Category;
         book.PageCount = dto.PageCount;
         book.Language = dto.Language;
+        book.ImageUrl = dto.ImageUrl;
         book.Description = dto.Description;
 
         await _bookRepository.UpdateAsync(book);
@@ -205,6 +208,7 @@ public class BookService:IBookService
             Language = book.Language,
             Description = book.Description,
             TotalCopies = totalCopies,
+            ImageUrl = book.ImageUrl,
             AvailableCopies = availableCopies
         };
     }

@@ -1,0 +1,182 @@
+﻿@model IEnumerable<Kutuphane.Application.Dtos.BookDtos.ResultBookDto>
+
+@{
+    ViewData["Title"] = "Ana Sayfa - Kütüphane Sistemi";
+}
+
+<!-- Slider Section -->
+<section id="slider" class="slider section dark-background">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper init-swiper">
+            <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 5000
+                  },
+                  "slidesPerView": "auto",
+                  "centeredSlides": true,
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  },
+                  "navigation": {
+                    "nextEl": ".swiper-button-next",
+                    "prevEl": ".swiper-button-prev"
+                  }
+                }
+            </script>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" style="background-image: url('https://dusunbil.com/wp-content/uploads/2016/09/libraries.jpg');">
+                    <div class="content">
+                        <h2><a href="#">Dünya Klasikleri</a></h2>
+                        <p>Dostoyevski, Tolstoy, Hugo... Edebiyatın dev yazarlarının eserlerini keşfedin.</p>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="background-image: url('https://serkanuygur.com.tr/wp-content/uploads/2018/03/serkan-uygur-tarihteki-bilim-insanlarc4b1.jpg?w=800');">
+                    <div class="content">
+                        <h2><a href="#">Bilim ve Teknoloji</a></h2>
+                        <p>Çağımızın en önemli bilim insanlarından ilham alın.</p>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="background-image: url('/BookTemp/assets/img/YazarKitap.jpg');">
+                    <div class="content">
+                        <h2><a href="#">Türk Edebiyatı</a></h2>
+                        <p>Orhan Pamuk, Sabahattin Ali, Yaşar Kemal ve daha fazlası...</p>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="background-image: url('https://www.arzubiyiklioglu.com/wp-content/uploads/2018/06/felsefe.jpg');">
+                    <div class="content">
+                        <h2><a href="#">Felsefe ve Düşünce</a></h2>
+                        <p>Zihinlerinizi açacak derin düşünce kitapları.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section><!-- /Slider Section -->
+<section class="recent-books section">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-header d-flex justify-content-between align-items-center mb-4">
+            <h2>Yeni Eklenen Kitaplar</h2>
+            <a asp-controller="Books" asp-action="Index" class="btn btn-primary">Tümünü Gör</a>
+        </div>
+
+        <div class="row gy-4">
+            @foreach (var book in Model)
+            {
+
+                <div class="col-lg-3 col-md-6">
+                    <article class="book-card">
+                        @if (book.ImageUrl != null)
+                        {
+                            <div class="post-img">
+                                <img style="max-width: 150px; max-height:200px; margin-left: 10px" src="@book.ImageUrl" alt="@book.Title" class="img-fluid">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="post-img">
+                                <img style="max-width: 150px; max-height:200px; margin-left: 10px" src="~/BookTemp/assets/img/placeholderBook.png" alt="@book.Title" class="img-fluid">
+                            </div>
+                        }
+                        <div class="post-content">
+                            <h3 class="post-title">
+                                <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id">
+                                    @book.Title
+                                </a>
+                            </h3>
+                            <p class="post-author">@book.Author</p>
+                            <div class="post-meta">
+                                <span class="badge bg-primary">@book.Category</span>
+                                <span class="badge bg-success">@book.AvailableCopies Kopya Müsait</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="text-muted small">
+                                    <i class="bi bi-book"></i> @book.PageCount sayfa
+                                </span>
+                                <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id" class="readmore">
+                                    Detay <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+
+            }
+        </div>
+
+    </div>
+</section><!-- /Recent Books Section -->
+<!-- Popüler Kategoriler Section -->
+<section class="categories-section section bg-light">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-header text-center mb-5">
+            <h2>Popüler Kategoriler</h2>
+            <p>Kütüphanemizde en çok tercih edilen kategoriler</p>
+        </div>
+
+        <div class="row gy-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="category-card text-center">
+                    <div class="category-icon">
+                        <i class="bi bi-book-half"></i>
+                    </div>
+                    <h4>Roman</h4>
+                    <p>500+ Kitap</p>
+                    <a asp-controller="Books" asp-action="Index" asp-route-category="Roman" class="btn btn-sm btn-outline-primary">
+                        Keşfet
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="category-card text-center">
+                    <div class="category-icon">
+                        <i class="bi bi-lightbulb"></i>
+                    </div>
+                    <h4>Bilim</h4>
+                    <p>250+ Kitap</p>
+                    <a asp-controller="Books" asp-action="Index" asp-route-category="Bilim" class="btn btn-sm btn-outline-primary">
+                        Keşfet
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="category-card text-center">
+                    <div class="category-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <h4>Tarih</h4>
+                    <p>180+ Kitap</p>
+                    <a asp-controller="Books" asp-action="Index" asp-route-category="Tarih" class="btn btn-sm btn-outline-primary">
+                        Keşfet
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="category-card text-center">
+                    <div class="category-icon">
+                        <i class="bi bi-mortarboard"></i>
+                    </div>
+                    <h4>Felsefe</h4>
+                    <p>120+ Kitap</p>
+                    <a asp-controller="Books" asp-action="Index" asp-route-category="Felsefe" class="btn btn-sm btn-outline-primary">
+                        Keşfet
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section><!-- /Categories Section -->

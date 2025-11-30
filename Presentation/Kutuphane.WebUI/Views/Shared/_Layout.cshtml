@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Kutuphane</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <link href="/BookTemp/assets/img/favicon.png" rel="icon">
+    <link href="/BookTemp/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/BookTemp/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/BookTemp/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/BookTemp/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/BookTemp/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="/BookTemp/assets/css/main.css" rel="stylesheet">
+
+</head>
+@RenderSection("Scripts", required: false)
+<body class="index-page">
+    <header id="header" class="header d-flex align-items-center sticky-top">
+        <div class="container position-relative d-flex align-items-center justify-content-between">
+
+            <!-- LOGO -->
+            <a asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center me-auto me-xl-0">
+                <h1 class="sitename">Library</h1>
+            </a>
+
+            <!-- NAVBAR -->
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <!-- Ana Sayfa -->
+                    <li>
+                        <a asp-controller="Home" asp-action="Index"
+                           class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
+                            Anasayfa
+                        </a>
+                    </li>
+
+                    <!-- Kitaplar -->
+                    <li>
+                        <a asp-controller="Books" asp-action="Index"
+                           class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Books" ? "active" : "")">
+                            Kitaplar
+                        </a>
+                    </li>
+
+                    <!-- Hakkımızda -->
+                    <li>
+                        <a asp-controller="Home" asp-action="About"
+                           class="@(ViewContext.RouteData.Values["action"]?.ToString() == "About" ? "active" : "")">
+                            Hakkımızda
+                        </a>
+                    </li>
+
+                    <!-- İletişim -->
+                    <li>
+                        <a asp-controller="Home" asp-action="Contact"
+                           class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Contact" ? "active" : "")">
+                            İletişim
+                        </a>
+                    </li>
+
+                    <!-- GİRİŞ YAPMAMIŞSA -->
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="#"><span>Üye İşlemleri</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                            <ul>
+                                <li>
+                                    <a asp-controller="Account" asp-action="Login">
+                                        <i class="bi bi-box-arrow-in-right"></i> Giriş Yap
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Account" asp-action="Register">
+                                        <i class="bi bi-person-plus"></i> Kayıt Ol
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <!-- ADMIN/LIBRARIAN MENÜSÜ -->
+                        @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+                        {
+                            <li class="dropdown">
+                                <a href="#"><span>Yönetim</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <ul>
+                                    <li>
+                                        <a asp-controller="Loans" asp-action="Index">
+                                            <i class="bi bi-journal-check"></i> Ödünç İşlemleri
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Members" asp-action="Index">
+                                            <i class="bi bi-people"></i> Üyeler
+                                        </a>
+                                    </li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li>
+                                            <a asp-controller="Admin" asp-action="Dashboard">
+                                                <i class="bi bi-speedometer2"></i> Admin Panel
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+                        <!-- KULLANICI MENÜSÜ -->
+                        <li class="dropdown">
+                            <a href="#">
+                                <span><i class="bi bi-person-circle"></i> @User.Identity.Name</span>
+                                <i class="bi bi-chevron-down toggle-dropdown"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a asp-controller="Account" asp-action="Profile">
+                                        <i class="bi bi-person"></i> Profilim
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Account" asp-action="MyLoans">
+                                        <i class="bi bi-book"></i> Ödünç Kitaplarım
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Account" asp-action="ChangePassword">
+                                        <i class="bi bi-key"></i> Şifre Değiştir
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline;">
+                                        <button type="submit" class="dropdown-item text-danger">
+                                            <i class="bi bi-box-arrow-right"></i> Çıkış Yap
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+
+            <!-- SOSYAL MEDYA LİNKLERİ -->
+            <div class="header-social-links">
+                <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="main">
+
+        @RenderBody()
+
+    </main>
+
+    <footer style="background-color: #1a1a1a; color: #e0e0e0; padding: 50px 0 20px 0; margin-top: 80px;">
+        <div class="container">
+            <div class="row">
+
+                <!-- Hakkımızda -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="mb-3" style="color: #fff; font-weight: 600;">📚 Library</h5>
+                    <p style="color: #b0b0b0; line-height: 1.8;">
+                        Modern kütüphane yönetim sistemi ile binlerce kitaba kolayca ulaşın.
+                        Okuma keyfinizi bizimle yaşayın.
+                    </p>
+                    <div class="mt-4">
+                        <a href="#" class="btn btn-outline-light btn-sm me-2" style="border-radius: 50%; width: 40px; height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm me-2" style="border-radius: 50%; width: 40px; height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm me-2" style="border-radius: 50%; width: 40px; height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm" style="border-radius: 50%; width: 40px; height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hızlı Linkler -->
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="mb-3" style="color: #fff; font-weight: 600;">Hızlı Linkler</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a asp-controller="Home" asp-action="Index" style="color: #b0b0b0; text-decoration: none; transition: color 0.3s;"
+                               onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#b0b0b0'">
+                                <i class="bi bi-chevron-right"></i> Anasayfa
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Books" asp-action="Index" style="color: #b0b0b0; text-decoration: none; transition: color 0.3s;"
+                               onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#b0b0b0'">
+                                <i class="bi bi-chevron-right"></i> Kitaplar
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Home" asp-action="About" style="color: #b0b0b0; text-decoration: none; transition: color 0.3s;"
+                               onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#b0b0b0'">
+                                <i class="bi bi-chevron-right"></i> Hakkımızda
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Home" asp-action="Contact" style="color: #b0b0b0; text-decoration: none; transition: color 0.3s;"
+                               onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#b0b0b0'">
+                                <i class="bi bi-chevron-right"></i> İletişim
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Kategoriler -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-3" style="color: #fff; font-weight: 600;">Kategoriler</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a asp-controller="Books" asp-action="Index" asp-route-category="Roman"
+                               style="color: #b0b0b0; text-decoration: none; transition: color 0.3s;"
+                               onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#b0b0b0'">
+                                <i class="bi bi-book"></i> Roman
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Books" asp-action="Index" asp-route-category="Bilim"
+                               style="color: #b0b0b0; text-decoration: none; transition: color 0.3s;"
+                               onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#b0b0b0'">
+                                <i class="bi bi-lightbulb"></i> Bilim
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Books" asp-action="Index" asp-route-category="Tarih"
+                               style="color: #b0b0b0; text-decoration: none; transition: color 0.3s;"
+                               onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#b0b0b0'">
+                                <i class="bi bi-clock-history"></i> Tarih
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-controller="Books" asp-action="Index" asp-route-category="Felsefe"
+                               style="color: #b0b0b0; text-decoration: none; transition: color 0.3s;"
+                               onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#b0b0b0'">
+                                <i class="bi bi-mortarboard"></i> Felsefe
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- İletişim Bilgileri -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-3" style="color: #fff; font-weight: 600;">İletişim</h5>
+                    <ul class="list-unstyled" style="color: #b0b0b0;">
+                        <li class="mb-3">
+                            <i class="bi bi-geo-alt-fill text-danger"></i>
+                            <span style="color: #b0b0b0;">
+                                Ankara Caddesi No:123<br>
+                                <span class="ms-4">Çankaya/ANKARA</span>
+                            </span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-telephone-fill text-success"></i>
+                            <span style="color: #b0b0b0;">+90 (312) 123 45 67</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-envelope-fill text-primary"></i>
+                            <span style="color: #b0b0b0;">info@library.com</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-clock-fill text-warning"></i>
+                            <span style="color: #b0b0b0;">Pzt-Cuma: 09:00 - 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+            <!-- Copyright -->
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0" style="color: #808080; font-size: 0.9rem;">
+                        &copy; 2025 Library. Tüm Hakları Saklıdır.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0" style="color: #808080; font-size: 0.9rem;">
+                        <a asp-controller="Home" asp-action="Privacy" style="color: #808080; text-decoration: none; transition: color 0.3s;"
+                           onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#808080'">
+                            Gizlilik Politikası
+                        </a>
+                        <span style="color: #606060;"> | </span>
+                        <a asp-controller="Home" asp-action="Terms" style="color: #808080; text-decoration: none; transition: color 0.3s;"
+                           onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#808080'">
+                            Kullanım Koşulları
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"
+       style="position: fixed; bottom: 30px; right: 30px; background: #007bff; color: #fff; width: 45px; height: 45px; border-radius: 50%; display: none; z-index: 999; transition: all 0.3s;">
+        <i class="bi bi-arrow-up-short" style="font-size: 24px;"></i>
+    </a>
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <script>
+        // Scroll to top butonu
+        window.addEventListener('scroll', function() {
+            var scrollTop = document.getElementById('scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.style.display = 'flex';
+            } else {
+                scrollTop.style.display = 'none';
+            }
+        });
+
+        document.getElementById('scroll-top').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+  
+
+    <!-- Vendor JS Files -->
+    <script src="/BookTemp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/BookTemp/assets/vendor/php-email-form/validate.js"></script>
+    <script src="/BookTemp/assets/vendor/aos/aos.js"></script>
+    <script src="/BookTemp/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Main JS File -->
+    <script src="/BookTemp/assets/js/main.js"></script>
+
+</body>
+
+</html>
