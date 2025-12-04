@@ -73,5 +73,18 @@ namespace Kutuphane.Persistence.Repositories
                 && !x.IsDeleted).
                 ToListAsync();
         }
+
+        public async Task<Copy?> GetLastCopyOfBookAsync(int bookId)
+        {
+            return await _dbSet
+            .Where(x => x.BookId == bookId && !x.IsDeleted) 
+            .OrderByDescending(x => x.CopyNumber)           
+            .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Copy>> GetAllCopiesOfBookAsync(int bookId)
+        {
+            return await _dbSet.Where(x=>x.BookId==bookId&&!x.IsDeleted).ToListAsync();
+        }
     }
 }

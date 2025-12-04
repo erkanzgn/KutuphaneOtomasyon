@@ -15,11 +15,13 @@ public class BookService:IBookService
 {
     private readonly IBookRepository _bookRepository;
     private readonly ICopyRepository _copyRepository;
+    private readonly ILoanRepository _loanRepository;
 
-    public BookService(IBookRepository bookRepository, ICopyRepository copyRepository)
+    public BookService(IBookRepository bookRepository, ICopyRepository copyRepository, ILoanRepository loanRepository)
     {
         _bookRepository = bookRepository;
         _copyRepository = copyRepository;
+        _loanRepository = loanRepository;
     }
 
     public async Task<IEnumerable<ResultBookDto>> GetAllBooksAsync()
@@ -125,7 +127,8 @@ public class BookService:IBookService
     public async Task<ResultBookDto> CreateBookAsync(CreateBookDto dto)
     {
         // ISBN kontrolü
-        if (await _bookRepository.IsISBNExistsAsync(dto.ISBN))
+        var existingBook = await _bookRepository.FirstOrDefaultAsync(b => b.ISBN == dto.ISBN);
+        if (existingBook != null)
         {
             throw new DuplicateException("Book", "ISBN", dto.ISBN);
         }
@@ -145,20 +148,29 @@ public class BookService:IBookService
         };
 
         await _bookRepository.AddAsync(book);
-
         return MapToDto(book, 0, 0);
     }
 
+    
     public async Task<ResultBookDto> UpdateBookAsync(int id, UpdateBookDto dto)
     {
         var book = await _bookRepository.GetByIdAsync(id);
-        if (book == null)
+        if (book == null) throw new NotFoundException("Book", id);
+
+        if (book.ISBN != dto.ISBN)
         {
-            throw new NotFoundException("Book", id);
+            var existingBook = await _bookRepository.FirstOrDefaultAsync(b => b.ISBN == dto.ISBN && b.Id != id);
+            if (existingBook != null)
+            {
+
+                throw new DuplicateException("Book", "ISBN", dto.ISBN);
+            }
         }
+
 
         book.Title = dto.Title;
         book.Author = dto.Author;
+        book.ISBN = dto.ISBN; 
         book.Publisher = dto.Publisher;
         book.PublicationYear = dto.PublicationYear;
         book.Category = dto.Category;
@@ -169,28 +181,38 @@ public class BookService:IBookService
 
         await _bookRepository.UpdateAsync(book);
 
-        var availableCopies = await _copyRepository.GetAvailableCopyCountAsync(id);
+      
         var totalCopies = await _copyRepository.CountAsync(c => c.BookId == id);
+        var availableCopies = await _copyRepository.GetAvailableCopyCountAsync(id);
 
         return MapToDto(book, totalCopies, availableCopies);
     }
 
     public async Task DeleteBookAsync(int id)
     {
+  
         var book = await _bookRepository.GetByIdAsync(id);
-        if (book == null)
+        if (book == null) throw new NotFoundException("Book", id);
+
+     
+
+        var hasActiveLoans = await _loanRepository.AnyAsync(l => l.Copy.BookId == id && l.ReturnDate == null);
+        if (hasActiveLoans)
         {
-            throw new NotFoundException("Book", id);
+            throw new BusinessException("Bu kitaba ait ödünçte olan kopyalar var. Önce iade almalısınız.");
         }
 
-        // Kopyası var mı kontrol et
-        var hasCopies = await _copyRepository.AnyAsync(c => c.BookId == id);
-        if (hasCopies)
-        {
-            throw new BusinessException("Cannot delete book with existing copies. Delete copies first.");
-        }
+        
+        book.IsDeleted = true;
+        await _bookRepository.UpdateAsync(book);
 
-        await _bookRepository.DeleteAsync(id);
+     
+        var copies = await _copyRepository.GetAllCopiesOfBookAsync(id); 
+        foreach (var copy in copies)
+        {
+            copy.IsDeleted = true;
+            await _copyRepository.UpdateAsync(copy); // Veya toplu update
+        }
     }
 
     private ResultBookDto MapToDto(Book book, int totalCopies, int availableCopies)

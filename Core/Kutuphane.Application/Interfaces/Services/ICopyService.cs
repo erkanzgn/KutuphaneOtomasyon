@@ -16,4 +16,5 @@ public interface ICopyService
     Task<ResultCopyDto> CreateCopyAsync(CreateCopyDto dto);
     Task<ResultCopyDto> UpdateCopyAsync(int id, UpdateCopyDto dto);
     Task DeleteCopyAsync(int id);
+    Task AddCopiesAsync(int bookId, int count, string shelfLocation);
 }

@@ -39,8 +39,7 @@ namespace Kutuphane.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
+            if (!ModelState.IsValid) return View(model);
 
             try
             {
@@ -58,23 +57,29 @@ namespace Kutuphane.Web.Controllers
                     return View(model);
                 }
 
-                // Cookie oluştur
+                // Cookie oluşturma işlemleri (Burası aynı kalıyor)
                 var authProperties = new AuthenticationProperties
                 {
-                    IsPersistent = model.RememberMe, // Beni Hatırla
+                    IsPersistent = model.RememberMe,
                     ExpiresUtc = model.RememberMe ? DateTimeOffset.UtcNow.AddDays(30) : DateTimeOffset.UtcNow.AddHours(8)
                 };
 
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(
-                        new ClaimsIdentity(result.Claims, CookieAuthenticationDefaults.AuthenticationScheme)
-                    ),
+                    new ClaimsPrincipal(new ClaimsIdentity(result.Claims, CookieAuthenticationDefaults.AuthenticationScheme)),
                     authProperties
                 );
 
                 TempData["Success"] = $"Hoş geldin, {result.User.Username}!";
+
+              
+                if (result.User.Role == "Admin")
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+
                 return RedirectToAction("Index", "Home");
+
             }
             catch (Exception ex)
             {

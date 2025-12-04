@@ -40,31 +40,24 @@
             <!-- NAVBAR -->
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <!-- Ana Sayfa -->
                     <li>
                         <a asp-controller="Home" asp-action="Index"
                            class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
                             Anasayfa
                         </a>
                     </li>
-
-                    <!-- Kitaplar -->
                     <li>
                         <a asp-controller="Books" asp-action="Index"
                            class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Books" ? "active" : "")">
                             Kitaplar
                         </a>
                     </li>
-
-                    <!-- Hakkımızda -->
                     <li>
                         <a asp-controller="Home" asp-action="About"
                            class="@(ViewContext.RouteData.Values["action"]?.ToString() == "About" ? "active" : "")">
                             Hakkımızda
                         </a>
                     </li>
-
-                    <!-- İletişim -->
                     <li>
                         <a asp-controller="Home" asp-action="Contact"
                            class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Contact" ? "active" : "")">
@@ -72,7 +65,6 @@
                         </a>
                     </li>
 
-                    <!-- GİRİŞ YAPMAMIŞSA -->
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li class="dropdown">
@@ -93,41 +85,21 @@
                     }
                     else
                     {
-                        <!-- ADMIN/LIBRARIAN MENÜSÜ -->
-                        @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
-                        {
-                            <li class="dropdown">
-                                <a href="#"><span>Yönetim</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Loans" asp-action="Index">
-                                            <i class="bi bi-journal-check"></i> Ödünç İşlemleri
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Members" asp-action="Index">
-                                            <i class="bi bi-people"></i> Üyeler
-                                        </a>
-                                    </li>
-                                    @if (User.IsInRole("Admin"))
-                                    {
-                                        <li>
-                                            <a asp-controller="Admin" asp-action="Dashboard">
-                                                <i class="bi bi-speedometer2"></i> Admin Panel
-                                            </a>
-                                        </li>
-                                    }
-                                </ul>
-                            </li>
-                        }
-
-                        <!-- KULLANICI MENÜSÜ -->
                         <li class="dropdown">
                             <a href="#">
                                 <span><i class="bi bi-person-circle"></i> @User.Identity.Name</span>
                                 <i class="bi bi-chevron-down toggle-dropdown"></i>
                             </a>
                             <ul>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li>
+                                        <a asp-controller="Admin" asp-action="Index" class="text-danger fw-bold">
+                                            <i class="bi bi-speedometer2"></i> Yönetim Paneli
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                }
                                 <li>
                                     <a asp-controller="Members" asp-action="Profile">
                                         <i class="bi bi-person"></i> Profilim
@@ -152,7 +124,6 @@
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
-
             <!-- SOSYAL MEDYA LİNKLERİ -->
             <div class="header-social-links">
                 <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>

@@ -17,4 +17,7 @@ public interface ICopyRepository:IGenericRepository<Copy>
     Task<Copy?> GetCopyWithBookAsync(int copyId);
     Task<int> GetAvailableCopyCountAsync(int bookId);
     Task<IEnumerable<Copy>> GetAllAvailableCopiesForBookAsync(int bookId);
+    Task<Copy?> GetLastCopyOfBookAsync(int bookId);
+
+    Task<IEnumerable<Copy>> GetAllCopiesOfBookAsync(int bookId);
 }

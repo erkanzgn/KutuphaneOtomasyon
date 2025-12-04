@@ -162,22 +162,20 @@ public class CopyService:ICopyService
         return MapToDto(copy);
     }
 
-    public async Task DeleteCopyAsync(int id)
+    public async Task DeleteCopyAsync(int copyId)
     {
-        var copy = await _copyRepository.GetByIdAsync(id);
-        if (copy == null)
+        var copy = await _copyRepository.GetByIdAsync(copyId);
+        if (copy == null) throw new NotFoundException("Copy", copyId);
+
+        
+        if (copy.Status == CopyStatus.Oduncte)
         {
-            throw new NotFoundException("Copy", id);
+            throw new BusinessException("Bu kopya şu an bir üyede. Silmeden önce iade almalısınız.");
         }
 
-        // Aktif ödünç var mı kontrol et
-        var activeLoan = await _loanRepository.GetActiveLoanAsync(id);
-        if (activeLoan != null)
-        {
-            throw new BusinessException("Cannot delete copy with active loan.");
-        }
-
-        await _copyRepository.DeleteAsync(id);
+        // 2. Soft Delete
+        copy.IsDeleted = true;
+        await _copyRepository.UpdateAsync(copy);
     }
 
     private ResultCopyDto MapToDto(Copy copy)
@@ -195,4 +193,36 @@ public class CopyService:ICopyService
         };
     }
 
+    public async Task AddCopiesAsync(int bookId, int count, string shelfLocation)
+    {
+     
+        var lastCopy = await _copyRepository.GetLastCopyOfBookAsync(bookId);
+
+        int startNumber = 1;
+        if (lastCopy != null)
+        {
+            if (int.TryParse(lastCopy.CopyNumber, out int lastNumber))
+            {
+                startNumber = lastNumber + 1;
+            }
+        }
+
+        for (int i = 0; i < count; i++)
+        {
+            var copy = new Copy
+            {
+                BookId = bookId,
+          
+                CopyNumber = (startNumber + i).ToString("D3"),
+                Status = CopyStatus.Rafta,
+                ShelfLocation = shelfLocation,
+                IsDeleted = false,
+                AcquisitionDate = DateTime.Now,
+                Condition = "Yeni",
+                Price = 0,
+            };
+
+            await _copyRepository.AddAsync(copy);
+        }
+    }
 }

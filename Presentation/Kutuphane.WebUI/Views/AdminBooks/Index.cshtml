@@ -1,0 +1,238 @@
+﻿@model IEnumerable<Kutuphane.Application.Dtos.BookDtos.ResultBookDto>
+
+@{
+    ViewData["Title"] = "Kitap Yönetimi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary"><i class="bi bi-journal-bookmark-fill"></i> Kitap Listesi</h2>
+    <a asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-lg"></i> Yeni Kitap Ekle
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 80px;">Görsel</th>
+                        <th>Başlık / ISBN</th>
+                        <th>Yazar</th>
+                        <th>Kategori</th>
+                        <th>Yayın Yılı</th>
+                        <th class="text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var book in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(book.ImageUrl))
+                                {
+                                    <img src="@book.ImageUrl" alt="Kapak" class="img-thumbnail" style="height: 60px; width: 45px; object-fit: cover;">
+                                }
+                                else
+                                {
+                                    <div class="bg-secondary text-white d-flex align-items-center justify-content-center rounded" style="height: 60px; width: 45px;">
+                                        <i class="bi bi-book"></i>
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <strong>@book.Title</strong><br>
+                                <small class="text-muted">ISBN: @book.ISBN</small>
+                            </td>
+                            <td>@book.Author</td>
+                            <td><span class="badge bg-info text-dark">@book.Category</span></td>
+                            <td>@book.PublicationYear</td>
+                            <td class="text-end">
+                                <a asp-action="Edit" asp-route-id="@book.Id" class="btn btn-sm btn-warning" title="Düzenle">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+
+                                <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id" target="_blank" class="btn btn-sm btn-info text-white" title="Sitede Gör">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+
+                                <form asp-action="Delete" method="post" style="display:inline;" onsubmit="return confirm('Bu kitabı ve tüm kopyalarını silmek istediğinize emin misiniz?');">
+                                    <input type="hidden" name="id" value="@book.Id" />
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Sil">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                                <button type="button" class="btn btn-sm btn-success"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#addCopyModal"
+                                        data-book-id="@book.Id"
+                                        data-book-title="@book.Title">
+                                    <i class="bi bi-plus-square"></i> Stok Ekle
+                                </button>
+                                <button type="button" class="btn btn-sm btn-info text-white"
+                                        onclick="loadCopies(@book.Id, '@book.Title')">
+                                    <i class="bi bi-list-ol"></i> Kopyalar
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-warning mt-3 text-center">
+                Henüz hiç kitap eklenmemiş.
+            </div>
+        }
+    </div>
+</div>
+<div class="modal fade" id="addCopyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title"><i class="bi bi-journals"></i> Kopya Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form asp-action="AddCopies" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="bookId" id="modalBookId" />
+
+                    <div class="mb-3 text-center">
+                        <h6 class="text-muted">Seçilen Kitap:</h6>
+                        <h4 id="modalBookTitle" class="fw-bold text-primary"></h4>
+                    </div>
+                    <hr />
+
+                    <div class="mb-3">
+                        <label class="form-label">Eklenecek Adet</label>
+                        <input type="number" name="count" class="form-control" value="1" min="1" max="50" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Raf Konumu (Örn: A-12)</label>
+                        <input type="text" name="shelfLocation" class="form-control" required placeholder="A-12" />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-success">Ekle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="copiesModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title"><i class="bi bi-list-check"></i> Kopya Yönetimi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 id="copiesModalTitle" class="text-primary fw-bold mb-3"></h5>
+
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped border">
+                        <thead>
+                            <tr>
+                                <th>Kopya No</th>
+                                <th>Durum</th>
+                                <th>Raf</th>
+                                <th class="text-end">İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody id="copiesTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // --- 1. KOPYALARI YÜKLE ---
+        function loadCopies(bookId, bookTitle) {
+            $('#copiesModalTitle').text(bookTitle + " - Kopyalar");
+            $('#copiesTableBody').html('<tr><td colspan="4" class="text-center">Yükleniyor...</td></tr>');
+
+            // Modal'ı aç
+            var myModal = new bootstrap.Modal(document.getElementById('copiesModal'));
+            myModal.show();
+
+            // Veriyi Çek
+            $.get('/AdminBooks/GetCopies?bookId=' + bookId, function (data) {
+                var html = '';
+                if (data.length === 0) {
+                    html = '<tr><td colspan="4" class="text-center">Hiç kopya bulunamadı.</td></tr>';
+                } else {
+                    $.each(data, function (index, item) {
+                        // Durum Rengi Ayarlama
+                        var badgeClass = item.status === 'Rafta' ? 'bg-success' :
+                                         item.status === 'Oduncte' ? 'bg-warning text-dark' : 'bg-secondary';
+
+                        html += `<tr>
+                                    <td>${item.copyNumber}</td>
+                                    <td><span class="badge ${badgeClass}">${item.status}</span></td>
+                                    <td>${item.shelfLocation}</td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-danger" onclick="deleteCopy(${item.id}, this)">
+                                            <i class="bi bi-trash"></i> Sil
+                                        </button>
+                                    </td>
+                                 </tr>`;
+                    });
+                }
+                $('#copiesTableBody').html(html);
+            });
+        }
+
+        // --- 2. KOPYA SİL ---
+        function deleteCopy(copyId, btnElement) {
+            if (!confirm('Bu kopyayı silmek istediğinize emin misiniz?')) return;
+
+            $.post('/Admin/AdminBooks/DeleteCopy', { copyId: copyId }, function (response) {
+                if (response.success) {
+                    // Satırı tablodan sil
+                    $(btnElement).closest('tr').fadeOut();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Silindi',
+                        text: response.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        text: response.message
+                    });
+                }
+            });
+        }
+    </script>
+    <script>
+        var addCopyModal = document.getElementById('addCopyModal');
+        addCopyModal.addEventListener('show.bs.modal', function (event) {
+            // Butona tıklandığında verileri al
+            var button = event.relatedTarget;
+            var bookId = button.getAttribute('data-book-id');
+            var bookTitle = button.getAttribute('data-book-title');
+
+            // Modal içindeki inputlara yaz
+            var modalIdInput = addCopyModal.querySelector('#modalBookId');
+            var modalTitleText = addCopyModal.querySelector('#modalBookTitle');
+
+            modalIdInput.value = bookId;
+            modalTitleText.textContent = bookTitle;
+        });
+    </script>
+}

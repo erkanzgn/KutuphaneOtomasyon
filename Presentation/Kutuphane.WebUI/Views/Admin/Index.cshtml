@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml"; 
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3 shadow-sm" style="max-width: 18rem;">
+            <div class="card-header">Toplam Üye</div>
+            <div class="card-body">
+                <h2 class="card-title"><i class="bi bi-people-fill"></i> 150</h2>
+                <p class="card-text">Aktif kütüphane üyesi.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3 shadow-sm" style="max-width: 18rem;">
+            <div class="card-header">Toplam Kitap</div>
+            <div class="card-body">
+                <h2 class="card-title"><i class="bi bi-book-fill"></i> 3,450</h2>
+                <p class="card-text">Raftaki ve ödünçteki kitaplar.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3 shadow-sm" style="max-width: 18rem;">
+            <div class="card-header text-dark">Ödünçte</div>
+            <div class="card-body text-dark">
+                <h2 class="card-title"><i class="bi bi-arrow-left-right"></i> 45</h2>
+                <p class="card-text">Şu an okunan kitaplar.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-danger mb-3 shadow-sm" style="max-width: 18rem;">
+            <div class="card-header">Gecikmiş İade</div>
+            <div class="card-body">
+                <h2 class="card-title"><i class="bi bi-exclamation-triangle-fill"></i> 5</h2>
+                <p class="card-text">Acil ilgilenilmesi gerekenler.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-header bg-white">
+        <h5 class="mb-0">Son Hareketler</h5>
+    </div>
+    <div class="card-body">
+        <p>Buraya son ödünç alma işlemleri listelenecek...</p>
+    </div>
+</div>
