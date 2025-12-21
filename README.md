@@ -48,17 +48,17 @@ Sistemi bilgisayarınızda çalıştırmak için detaylı kurulum rehberine göz
 Uygulamanın arayüzüne ait güncel ekran görüntüleri:
 
 ### 🏠 Ana Sayfa Dashboard
-![Ana Sayfa Dashboard](file:///c:/Users/Erkan/Desktop/KutuphaneOtomasyon/Kutuphane/docs/AnaSayfa.png)
+![Ana Sayfa Dashboard](docs/AnaSayfa.png)
 
 ### 🔑 Giriş Paneli
-![Giriş Paneli](file:///c:/Users/Erkan/Desktop/KutuphaneOtomasyon/Kutuphane/docs/GirisPaneli.png)
+![Giriş Paneli](docs/GirisPaneli.png)
 
 ### 📚 Kitap Kataloğu
-![Kitap Kataloğu](file:///c:/Users/Erkan/Desktop/KutuphaneOtomasyon/Kutuphane/docs/Kitapkatalog.png)
+![Kitap Kataloğu](docs/Kitapkatalog.png)
 
 ### 👤 Kullanıcı Profili
-![Kullanıcı Profili](file:///c:/Users/Erkan/Desktop/KutuphaneOtomasyon/Kutuphane/docs/KullaniciProfil.png)
+![Kullanıcı Profili](docs/KullaniciProfil.png)
 
 ---
-*Antigravity tarafından modernize edilmiştir.*
+
 
