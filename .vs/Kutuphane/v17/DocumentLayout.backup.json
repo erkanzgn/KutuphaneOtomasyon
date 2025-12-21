@@ -1,0 +1,221 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\presentation\\kutuphane.webui\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|solutionrelative:presentation\\kutuphane.webui\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77E1E6DB-BE9B-4D91-B721-3B98BEC58A5B}|Core\\Kutuphane.Application\\Kutuphane.Application.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\core\\kutuphane.application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77E1E6DB-BE9B-4D91-B721-3B98BEC58A5B}|Core\\Kutuphane.Application\\Kutuphane.Application.csproj|solutionrelative:core\\kutuphane.application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77E1E6DB-BE9B-4D91-B721-3B98BEC58A5B}|Core\\Kutuphane.Application\\Kutuphane.Application.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\core\\kutuphane.application\\services\\memberservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77E1E6DB-BE9B-4D91-B721-3B98BEC58A5B}|Core\\Kutuphane.Application\\Kutuphane.Application.csproj|solutionrelative:core\\kutuphane.application\\services\\memberservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\presentation\\kutuphane.webui\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|solutionrelative:presentation\\kutuphane.webui\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\presentation\\kutuphane.webui\\views\\admin\\stats.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|solutionrelative:presentation\\kutuphane.webui\\views\\admin\\stats.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\presentation\\kutuphane.webui\\controllers\\admin\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|solutionrelative:presentation\\kutuphane.webui\\controllers\\admin\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\presentation\\kutuphane.webui\\controllers\\admin\\adminmemberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|solutionrelative:presentation\\kutuphane.webui\\controllers\\admin\\adminmemberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\presentation\\kutuphane.webui\\views\\adminusers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|solutionrelative:presentation\\kutuphane.webui\\views\\adminusers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\presentation\\kutuphane.webui\\controllers\\admin\\adminuserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|solutionrelative:presentation\\kutuphane.webui\\controllers\\admin\\adminuserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\presentation\\kutuphane.webui\\views\\adminmembers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|solutionrelative:presentation\\kutuphane.webui\\views\\adminmembers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\presentation\\kutuphane.webui\\views\\adminloans\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|solutionrelative:presentation\\kutuphane.webui\\views\\adminloans\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|c:\\users\\erkan\\desktop\\kutuphaneotomasyon\\kutuphane\\presentation\\kutuphane.webui\\controllers\\admin\\adminlaonscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4724D9B0-4091-454A-A3E5-048E4E570E54}|Presentation\\Kutuphane.WebUI\\Kutuphane.WebUI.csproj|solutionrelative:presentation\\kutuphane.webui\\controllers\\admin\\adminlaonscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Core\\Kutuphane.Application\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Core\\Kutuphane.Application\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Core\\Kutuphane.Application\\Services\\AuthService.cs",
+              "RelativeToolTip": "Core\\Kutuphane.Application\\Services\\AuthService.cs",
+              "ViewState": "AgIAAK8AAAAAAAAAAAAYwMQAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T12:44:49.431Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_AdminLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeDocumentMoniker": "Presentation\\Kutuphane.WebUI\\Views\\Shared\\_AdminLayout.cshtml",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeToolTip": "Presentation\\Kutuphane.WebUI\\Views\\Shared\\_AdminLayout.cshtml",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAwwGUAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-21T12:35:24.395Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Stats.cshtml",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\Admin\\Stats.cshtml",
+              "RelativeDocumentMoniker": "Presentation\\Kutuphane.WebUI\\Views\\Admin\\Stats.cshtml",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\Admin\\Stats.cshtml",
+              "RelativeToolTip": "Presentation\\Kutuphane.WebUI\\Views\\Admin\\Stats.cshtml",
+              "ViewState": "AgIAAMAAAAAAAAAAAAAQwOMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-21T10:34:18.956Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\Admin\\Index.cshtml",
+              "RelativeDocumentMoniker": "Presentation\\Kutuphane.WebUI\\Views\\Admin\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\Admin\\Index.cshtml",
+              "RelativeToolTip": "Presentation\\Kutuphane.WebUI\\Views\\Admin\\Index.cshtml",
+              "ViewState": "AgIAAJUAAAAAAAAAAAAIwKkAAACTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-21T10:30:18.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminController.cs",
+              "RelativeDocumentMoniker": "Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminController.cs",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminController.cs",
+              "RelativeToolTip": "Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAuwD4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T10:30:07.124Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MemberService.cs",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Core\\Kutuphane.Application\\Services\\MemberService.cs",
+              "RelativeDocumentMoniker": "Core\\Kutuphane.Application\\Services\\MemberService.cs",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Core\\Kutuphane.Application\\Services\\MemberService.cs",
+              "RelativeToolTip": "Core\\Kutuphane.Application\\Services\\MemberService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMBAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T10:23:02.472Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AdminUsersController.cs",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminUsersController.cs",
+              "RelativeDocumentMoniker": "Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminUsersController.cs",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminUsersController.cs",
+              "RelativeToolTip": "Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminUsersController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAuwCUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T10:17:22.919Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\AdminUsers\\Index.cshtml",
+              "RelativeDocumentMoniker": "Presentation\\Kutuphane.WebUI\\Views\\AdminUsers\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\AdminUsers\\Index.cshtml",
+              "RelativeToolTip": "Presentation\\Kutuphane.WebUI\\Views\\AdminUsers\\Index.cshtml",
+              "ViewState": "AgIAAKUAAAAAAAAAAAAowMoAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-21T10:16:52.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\AdminMembers\\Index.cshtml",
+              "RelativeDocumentMoniker": "Presentation\\Kutuphane.WebUI\\Views\\AdminMembers\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\AdminMembers\\Index.cshtml",
+              "RelativeToolTip": "Presentation\\Kutuphane.WebUI\\Views\\AdminMembers\\Index.cshtml",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAowMAAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-21T10:11:44.784Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AdminMembersController.cs",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminMembersController.cs",
+              "RelativeDocumentMoniker": "Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminMembersController.cs",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminMembersController.cs",
+              "RelativeToolTip": "Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminMembersController.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T10:04:38.31Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\AdminLoans\\Index.cshtml",
+              "RelativeDocumentMoniker": "Presentation\\Kutuphane.WebUI\\Views\\AdminLoans\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Views\\AdminLoans\\Index.cshtml",
+              "RelativeToolTip": "Presentation\\Kutuphane.WebUI\\Views\\AdminLoans\\Index.cshtml",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAQwLAAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-21T10:04:20.132Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AdminLaonsController.cs",
+              "DocumentMoniker": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminLaonsController.cs",
+              "RelativeDocumentMoniker": "Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminLaonsController.cs",
+              "ToolTip": "C:\\Users\\Erkan\\Desktop\\KutuphaneOtomasyon\\Kutuphane\\Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminLaonsController.cs",
+              "RelativeToolTip": "Presentation\\Kutuphane.WebUI\\Controllers\\Admin\\AdminLaonsController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAwCwAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T10:03:36.77Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

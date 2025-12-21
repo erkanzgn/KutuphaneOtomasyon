@@ -1,84 +1,39 @@
-# 📚 Kütüphane Otomasyon Sistemi
+# 📚 Kütüphane Otomasyon Sistemi - Teslimat Paketi
 
-Modern ve kullanıcı dostu bir kütüphane yönetim sistemi. ASP.NET Core MVC ile Clean Architecture prensiplerine uygun olarak geliştirilmiştir.
+Bu klasör, projenin "Depo & Paketleme Kontrolü" standartlarına uygun olarak hazırlanmış teslimat versiyonudur.
 
-## ✨ Özellikler
+## 📂 Klasör Yapısı
 
-- **Kitap Yönetimi**: Kitap ekleme, düzenleme, silme ve arama
-- **Üye Yönetimi**: Üye kaydı, durum takibi, ban sistemi
-- **Ödünç İşlemleri**: Kitap ödünç verme, iade alma, gecikme takibi
-- **Kullanıcı Rolleri**: Admin, Kütüphaneci, Üye rolleri
-- **Raporlama**: Detaylı istatistikler ve raporlar
-- **İletişim**: Üyelerden gelen mesajların yönetimi
-- **Email Bildirimleri**: SMTP entegrasyonu ile email desteği
+- **`/schema`**: `database.sql` - Veritabanı oluşturma scripti.
+- **`/programmability`**: SQL programlanabilirlik objeleri.
+- **`/app`**: Uygulama kaynak kodları (Clean Architecture).
+- **`/docs`**: Kullanım dökümanları ve ekran görüntüleri.
+- **`/tests`**: Unit ve Integration testleri.
 
-## 🛠️ Teknolojiler
+## 🚀 Hızlı Kurulum
 
-| Teknoloji | Versiyon |
-|-----------|----------|
-| .NET | 8.0 |
-| ASP.NET Core MVC | 8.0 |
-| Entity Framework Core | 8.0.22 |
-| SQL Server | Express/Standard |
-| BCrypt.Net | 4.0.3 |
+### 1. Veritabanı Kurulumu
+`schema/database.sql` dosyasını SQL Server Management Studio (SSMS) üzerinden çalıştırarak veritabanını ve tabloları oluşturun.
 
-## 📁 Proje Yapısı
+### 2. Uygulama Yapılandırması
+`app/Presentation/Kutuphane.WebUI/appsettings.json` dosyasını açın ve `ConnectionStrings` bölümünü kendi sunucunuza göre düzenleyin:
 
-```
-Kutuphane/
-├── Core/
-│   ├── Kutuphane.Domain/        # Entity'ler, Enum'lar
-│   └── Kutuphane.Application/   # Servisler, DTO'lar, Interface'ler
-├── Infrastructure/
-│   ├── Kutuphane.Identity/      # Kimlik doğrulama
-│   └── Kutuphane.Persistence/   # Veritabanı, Repository'ler
-└── Presentation/
-    ├── Kutuphane.WebUI/         # MVC Web Uygulaması
-    └── Kutuphane.WebApi/        # API (opsiyonel)
+```json
+"DefaultConnection": "Server=YOUR_SERVER;Database=KutuphaneOtomasyonDB;Trusted_Connection=True;TrustServerCertificate=True"
 ```
 
-## 🚀 Kurulum
-
-Detaylı kurulum adımları için [KURULUM.md](KURULUM.md) dosyasına bakınız.
-
-### Hızlı Başlangıç
-
-1. **Gereksinimler**
-   - .NET 8.0 SDK
-   - SQL Server (Express veya üstü)
-   - Visual Studio 2022 veya VS Code
-
-2. **Veritabanı Ayarları**
-   `appsettings.json` dosyasında connection string'i güncelleyin:
-   ```json
-   "ConnectionStrings": {
-     "DefaultConnection": "Server=YOUR_SERVER;Database=KutuphaneOtomasyonDB;Trusted_Connection=True;TrustServerCertificate=True"
-   }
-   ```
-
-3. **Migration'ları Uygulama**
-   ```bash
-   dotnet ef database update --project Infrastructure/Kutuphane.Persistence --startup-project Presentation/Kutuphane.WebUI
-   ```
-
-4. **Uygulamayı Çalıştırma**
-   ```bash
-   cd Presentation/Kutuphane.WebUI
-   dotnet run
-   ```
-
-## 👤 Kullanıcı Rolleri
-
-| Rol | Yetkiler |
-|-----|----------|
-| **Admin** | Tam sistem erişimi, kullanıcı yönetimi |
-| **Librarian** | Kitap, üye ve ödünç işlemleri yönetimi |
-| **Member** | Kendi profilini görüntüleme, kitap arama |
-
-## 📄 Lisans
-
-Bu proje eğitim amaçlı geliştirilmiştir.
+### 3. Çalıştırma
+Visual Studio 2022 ile `app/Kutuphane.sln` dosyasını açın ve `Kutuphane.WebUI` projesini başlangıç projesi yaparak çalıştırın.
 
 ---
 
-📧 Sorularınız için iletişime geçebilirsiniz.
+## 🖼️ Ekran Görüntüleri
+
+Uygulama arayüzüne ait ekran görüntüleri `docs/` klasöründe yer almaktadır.
+
+- `dashboard.png`: Ana yönetim paneli.
+- `book_list.png`: Kitap listeleme ve arama ekranı.
+- `member_profile.png`: Üye detay sayfası.
+
+---
+*Bu paket Antigravity tarafından otomatik olarak organize edilmiştir.*
