@@ -18,9 +18,22 @@ namespace Kutuphane.WebUI.Controllers.Admin
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTerm)
         {
             var users = await _userService.GetAllUsersAsync();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = searchTerm.Trim().ToLower();
+                users = users.Where(u =>
+                    (u.FirstName != null && u.FirstName.ToLower().Contains(searchTerm)) ||
+                    (u.LastName != null && u.LastName.ToLower().Contains(searchTerm)) ||
+                    (u.Username != null && u.Username.ToLower().Contains(searchTerm)) ||
+                    (u.Email != null && u.Email.ToLower().Contains(searchTerm))
+                ).ToList();
+            }
+
+            ViewBag.SearchTerm = searchTerm;
             return View(users);
         }
 

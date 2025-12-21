@@ -181,14 +181,14 @@ namespace Kutuphane.WebUI.Controllers
                 {
                     new TeamMemberViewModel
                     {
-                        Name = "Senin Adýn Soyadýn",
+                        Name = "Erkan Özgün",
                         Title = "Lead Developer / Computer Eng. Student",
                         ImageUrl = "" 
                     },
                 
                     new TeamMemberViewModel
                     {
-                        Name = "Proje Danýþmaný",
+                        Name = "Yusuflar",
                         Title = "Akademik Danýþman",
                         ImageUrl = ""
                     }

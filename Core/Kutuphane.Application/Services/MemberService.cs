@@ -196,22 +196,38 @@ public class MemberService:IMemberService
 
     public async Task<ResultMemberDto> UpdateMemberAsync(int id, UpdateMemberDto dto)
     {
+        // 1. Üyeyi Bul
         var member = await _memberRepository.GetByIdAsync(id);
         if (member == null)
         {
             throw new NotFoundException("Member", id);
         }
 
-        // Email kontrolü
+        // 2. Bağlı Kullanıcıyı (User) Bul (EKLENDİ)
+        var user = await _userRepository.FirstOrDefaultAsync(u => u.MemberId == id);
+
+        // 3. Email Validasyonları (Hem Member hem User için kontrol edilmeli)
         if (!string.IsNullOrWhiteSpace(dto.Email) && dto.Email != member.Email)
         {
-            var existingEmail = await _memberRepository.FirstOrDefaultAsync(m => m.Email == dto.Email && m.Id != id);
-            if (existingEmail != null)
+            // Member tablosunda bu mail başkasında var mı?
+            var existingMemberEmail = await _memberRepository.FirstOrDefaultAsync(m => m.Email == dto.Email && m.Id != id);
+            if (existingMemberEmail != null)
             {
                 throw new DuplicateException("Member", "Email", dto.Email);
             }
+
+            // User tablosunda bu mail başkasında var mı? (EKLENDİ)
+            if (user != null)
+            {
+                var existingUserEmail = await _userRepository.FirstOrDefaultAsync(u => u.Email == dto.Email && u.Id != user.Id);
+                if (existingUserEmail != null)
+                {
+                    throw new DuplicateException("User", "Email", dto.Email);
+                }
+            }
         }
 
+        // 4. Member Bilgilerini Güncelle
         member.FirstName = dto.FirstName;
         member.LastName = dto.LastName;
         member.Email = dto.Email;
@@ -226,6 +242,18 @@ public class MemberService:IMemberService
         }
 
         await _memberRepository.UpdateAsync(member);
+
+        
+        if (user != null)
+        {
+            user.FirstName = dto.FirstName;
+            user.LastName = dto.LastName;
+            user.Email = dto.Email;
+
+            user.Username = dto.Email;
+
+            await _userRepository.UpdateAsync(user);
+        }
 
         return MapToDto(member);
     }

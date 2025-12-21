@@ -4,6 +4,7 @@
     ViewData["Title"] = "Ödünç İşlemleri";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 
+    // Controller'dan filtrelenmiş liste gelir, burada ikiye ayrılır.
     var activeLoans = Model.Where(x => !x.ReturnDate.HasValue).OrderBy(x => x.DueDate).ToList();
     var pastLoans = Model.Where(x => x.ReturnDate.HasValue).OrderByDescending(x => x.ReturnDate).ToList();
 }
@@ -20,6 +21,29 @@
         </a>
     </div>
 
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-body py-3">
+            <form asp-action="Index" method="get">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0 text-primary">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text" name="searchTerm" class="form-control border-start-0 ps-0"
+                           placeholder="Üye Adı, Kitap Adı veya Üye No ile arama yapın..."
+                           value="@ViewBag.SearchTerm">
+                    
+                    <button class="btn btn-primary px-4" type="submit">Ara</button>
+
+                    @if (!string.IsNullOrEmpty(ViewBag.SearchTerm as string))
+                    {
+                        <a asp-action="Index" class="btn btn-outline-danger" title="Aramayı Temizle">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
         <div class="card-header bg-white border-bottom p-0">
             <ul class="nav nav-tabs nav-fill border-0" id="loanTabs" role="tablist">
@@ -75,15 +99,11 @@
                                             <td class="ps-4">
                                                 @if (isOverdue)
                                                 {
-                                                    <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill">
-                                                        <i class="bi bi-exclamation-triangle-fill me-1"></i>Gecikmiş
-                                                    </span>
+                                                    <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill">Gecikmiş</span>
                                                 }
                                                 else
                                                 {
-                                                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">
-                                                        <i class="bi bi-check-circle me-1"></i>Normal
-                                                    </span>
+                                                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">Normal</span>
                                                 }
                                             </td>
                                             <td>
@@ -92,7 +112,7 @@
                                             </td>
                                             <td>
                                                 <div class="fw-bold text-dark">@item.BookTitle</div>
-                                                <div class="small text-muted"><i class="bi bi-upc me-1"></i>Kopya: @item.CopyNumber</div>
+                                                <div class="small text-muted">Kopya: @item.CopyNumber</div>
                                             </td>
                                             <td>
                                                 <div class="small text-muted">Veriliş: @item.LoanDate?.ToString("dd.MM.yyyy")</div>
@@ -114,64 +134,41 @@
                     else
                     {
                         <div class="text-center py-5">
-                            <i class="bi bi-inbox fs-1 text-muted opacity-25"></i>
-                            <p class="text-muted mt-2">Şu anda aktif bir ödünç işlemi yok.</p>
+                            <i class="bi bi-search fs-1 text-muted opacity-25"></i>
+                            <p class="text-muted mt-2">"@ViewBag.SearchTerm" kriterine uygun aktif ödünç bulunamadı.</p>
                         </div>
                     }
                 </div>
 
                 <div class="tab-pane fade" id="history-content" role="tabpanel">
-                    @if (pastLoans.Any())
-                    {
-                        <div class="table-responsive">
+                     @if (!pastLoans.Any())
+                     {
+                        <div class="text-center py-5">
+                            <p class="text-muted mt-2">Kriterlere uygun geçmiş işlem bulunamadı.</p>
+                        </div>
+                     }
+                     else 
+                     {
+                         @Html.Raw("")
+                         <div class="table-responsive">
                             <table class="table table-hover align-middle mb-0">
-                                <thead class="bg-light text-uppercase small text-muted">
-                                    <tr>
-                                        <th class="ps-4">Durum</th>
-                                        <th>Üye</th>
-                                        <th>Kitap</th>
-                                        <th>İade Tarihi</th>
-                                        <th class="text-end pe-4">İşlem</th>
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     @foreach (var item in pastLoans)
                                     {
                                         <tr class="opacity-75" onclick="window.location.href='@Url.Action("Details", new { id = item.Id })'" style="cursor: pointer;">
-                                            <td class="ps-4">
-                                                <span class="badge bg-secondary bg-opacity-10 text-secondary border px-3 py-2 rounded-pill">
-                                                    <i class="bi bi-check2-all me-1"></i>Tamamlandı
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <div class="fw-bold">@item.MemberName</div>
-                                            </td>
-                                            <td>
-                                                <div class="fw-bold">@item.BookTitle</div>
-                                            </td>
-                                            <td>
-                                                <span class="fw-bold text-success">
-                                                    <i class="bi bi-calendar-check me-1"></i>@item.ReturnDate?.ToString("dd.MM.yyyy HH:mm")
-                                                </span>
-                                            </td>
+                                            <td class="ps-4"><span class="badge bg-secondary bg-opacity-10 text-secondary border px-3 py-2 rounded-pill">Tamamlandı</span></td>
+                                            <td><div class="fw-bold">@item.MemberName</div></td>
+                                            <td><div class="fw-bold">@item.BookTitle</div></td>
+                                            <td><span class="fw-bold text-success">@item.ReturnDate?.ToString("dd.MM.yyyy")</span></td>
                                             <td class="text-end pe-4">
-                                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-light border text-secondary rounded-pill">
-                                                    Detay
-                                                </a>
+                                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-light border text-secondary rounded-pill">Detay</a>
                                             </td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="text-center py-5">
-                            <i class="bi bi-clock-history fs-1 text-muted opacity-25"></i>
-                            <p class="text-muted mt-2">Geçmiş işlem kaydı bulunamadı.</p>
-                        </div>
-                    }
+                         </div>
+                     }
                 </div>
 
             </div>

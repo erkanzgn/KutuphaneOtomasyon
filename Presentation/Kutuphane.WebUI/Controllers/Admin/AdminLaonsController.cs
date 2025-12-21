@@ -23,17 +23,32 @@ namespace Kutuphane.WebUI.Controllers.Admin
             _memberService = memberService;
         }
 
-       
+
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTerm)
         {
-
-
+            // 1. Tüm veriyi çek
             var loans = await _loanService.GetAllLoansAsync();
+
+            // 2. Arama terimi varsa filtrele
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = searchTerm.Trim().ToLower();
+
+                loans = loans.Where(x =>
+                    (x.MemberName != null && x.MemberName.ToLower().Contains(searchTerm)) || 
+                    (x.BookTitle != null && x.BookTitle.ToLower().Contains(searchTerm)) ||   
+                    x.MemberId.ToString().Contains(searchTerm) // 
+                ).ToList();
+            }
+
+          
+            ViewBag.SearchTerm = searchTerm;
+
             return View(loans);
         }
 
-        
+
         [HttpGet]
         public async Task<IActionResult> Overdue()
         {
